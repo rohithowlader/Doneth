@@ -1,0 +1,252 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
+            integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+        
+       
+        
+        <!-- CSS only -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+        
+
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+            integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+            crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+            integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+            crossorigin="anonymous"></script>
+
+
+
+        <title>
+            Doneth
+        </title>
+        <link rel="stylesheet" href="./styles.css"/>
+        <link rel="icon" href="favicon.png"/>
+    </head>
+    <body>
+
+        <div class="container">
+            <div class="row app-holder">
+                <div class="col-lg-2" style="margin-right: 15px;">
+                    <div class="menu_container">
+                        <img src="img/logo.svg" width="40px" style="margin-left: 4px; margin-bottom: 20px;"/>
+                        
+                        <button class="just_text" data-toggle="modal" data-target="#IntentTriggerModal_about">About</button>
+                        <button class="just_text" onclick="window.open('https://calendar.google.com')">Calendar</button>
+                        
+                        <button class="just_text" data-toggle="modal" data-target="#IntentTriggerModal_getAPI" id="API_button">Edit key</button>
+                        <button class="just_text" onclick="window.open('https://shuvam.notion.site/Doneth-82a05aeec5d24068ba3f1252b7b4694d')">Know more &nbsp;➝</button>
+
+                        <button class="just_text" id="signout_button" style="display: none;">Sign out &nbsp;➝</button>
+                        <button class="just_text" data-toggle="modal" data-target="#IntentTriggerModal_reminderPrompt" id="prompt_result" style="display: none;">Open prompt</button>
+                        </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="task_container">
+                        <div class="add_task_container">
+                            <input type="text" id="addTask" name="addTask" placeholder="Add a new task">
+                            <div class="button_container">
+                                <button class="add_task_button" id="add_task_button" onclick="addTask()">Add task ➝</button>
+                                <button class="add_task_button_2" id="dictate_button" onclick="dictate()"><img src="img/mic_white.svg" width="20px"/></button>
+                            </div>
+                        </div>
+                        
+
+                        <div class="task_header">Tasks <span id="task_count">0</span></div>
+                        <div id="task_list">
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="row notice-holder">
+               <div class="col-lg-7" style="margin: 0 auto;">
+                <div style="display: flex; align-items: center; justify-content: center; flex-direction: column;">
+                    <img src="img/logo.svg" alt="Doneth logo" style="width: 80px; height: 80px; margin: 20px">
+                    <p class="summary_text" style="font-size: 22px; margin-bottom: 5px; min-height: 30px;">Sorry :(</p>
+                    <p class="summary_text" style="text-align: left;
+                    margin-top: 0px;">
+                        Doneth is not currently available for the screen size you are using.<br/>
+                        We are trying to bring Doneth to all screen sizes and devices, but currently, you need to use a screen with a width of at least 994px to use Doneth.<br/><br/>
+                        If you are joining from a tablet, please try in landscape orientation.
+                    </p>
+
+                </div>
+               </div>
+            </div>
+            
+            
+          
+        </div>
+       
+        <!-- Modal -->
+        <div class="modal fade" id="IntentTriggerModal" tabindex="-1" role="dialog" aria-labelledby="IntentBaseModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    
+                    <div class="modal-body">
+                        <div class="modal_header">
+                            <button class="close" data-dismiss="modal" aria-label="Close"><i class="fas fa-times"></i></button>
+                        </div>
+                        
+                        <div id="modal_content"></div>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="modal fade" id="IntentTriggerModal_getAPI" tabindex="-1" role="dialog" aria-labelledby="IntentBaseModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+        
+                    <div class="modal-body">
+                        <div class="modal_header">
+                            <button class="close" id="close_key_modal" data-dismiss="modal" aria-label="Close"><i class="fas fa-times"></i></button>
+                        </div>
+        
+                        <div id="modal_content"><div class='content_block'>
+                            <p class='summary_text' style="min-height: 10px; margin: unset;">🔐 Enter OpenAI Key</p>
+                            <br/><input id='api_key_input' class='input_box'
+                                placeholder='Paste key here'/>
+                                <br/><br/><br/>
+                        <button class='intent_button'
+                                id='get_api_key_button' onclick='set_openai_key()'>Set Key</button>
+                            
+                        </div></div>
+                    </div>
+        
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="modal fade" id="IntentTriggerModal_setReminder" tabindex="-1" role="dialog" aria-labelledby="IntentBaseModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog set_reminder" role="document">
+                <div class="modal-content">
+        
+                    <div class="modal-body">
+                        <div class="modal_header">
+                            <button class="close" id="close_reminder_modal" data-dismiss="modal" aria-label="Close"><i class="fas fa-times"></i></button>
+                        </div>
+        
+                        <div id="modal_content"><div class='content_block'>
+                            <p class='summary_text' style="min-height: 10px; margin: unset;">📅 Set a reminder</p>
+                            <br/>
+                                <input id='detail' class='input_box'
+                                placeholder='Enter your reminder' required/>
+
+                                <p class='summary_text' style="min-height: 10px; margin: unset; margin-top: 10px;">Starts at</p>
+                                <div class="tva_container">
+                                    <input type="date" id='starttime' class='input_box' style="margin-right:14px" required/>
+                                    <input type="time" id='starttime_t' class='input_box' required/>
+                                </div>
+                                
+
+                                <p class='summary_text' style="min-height: 10px; margin: unset; margin-top: 10px;">Ends at</p>
+                                <div class="tva_container">
+                                    <input type="date" id='endtime' class='input_box' style="margin-right:14px" required/>
+                                    <input type="time" id='endtime_t' class='input_box' required/>
+                                </div>
+                                
+                                <pre id="content" style="white-space: pre-wrap; display: none;"></pre>
+                                <br/>
+
+                                <button class="intent_button"
+                                id="createmeet_button" style="display: none;">Set Reminder</button>
+                        </div></div>
+                    </div>
+        
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="modal fade" id="IntentTriggerModal_reminderPrompt" tabindex="-1" role="dialog" aria-labelledby="IntentBaseModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog set_reminder" role="document">
+            <div class="modal-content">
+    
+                <div class="modal-body">
+                    <div class="modal_header">
+                        <button class="close" id="close_result_modal" data-dismiss="modal" aria-label="Close"><i class="fas fa-times"></i></button>
+                    </div>
+    
+                    <div id="modal_content"><div class='content_block' id="reminder_block">
+                       
+                    </div></div>
+                </div>
+    
+            </div>
+        </div>
+    </div>
+
+
+
+                <!-- About Modal -->
+                <div class="modal fade" id="IntentTriggerModal_about" tabindex="-1" role="dialog" aria-labelledby="IntentBaseModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        
+                        <div class="modal-body">
+                            <div class="modal_header">
+                                <button class="close" data-dismiss="modal" aria-label="Close"><i class="fas fa-times"></i></button>
+                            </div>
+                            
+                            <div id="modal_content" style="display: flex; align-items: center; justify-content: center; flex-direction: column;">
+                                <img src="img/logo.svg" alt="Doneth logo" style="width: 80px; height: 80px; margin: 20px">
+                                <p class="summary_text" style="font-size: 22px; margin-bottom: 5px; min-height: 30px;">Doneth v1.0.0</p>
+                                <p class="summary_text" style="text-align: left;
+                                margin-top: 0px;">
+                                    We felt to-do lists were broken - fundamentally because they were designed to list to-do's. In the end, they fell short because we kept adding and piling on to the list - often doing, and more often, not doing them.<br/>
+                                    We also felt that seemingly simple, random, repititive tasks ended up taking time and headspace - so we built Doneth. Doneth is a multi-utility to-do list application that enables you to get things done.<br/>
+                                    Powered by GPT-3, Doneth has a multitude of micro-apps that enable you to complete things in here itself. This is currently still in Beta - and you need a valid GPT-3 key of your own to use.
+                                </p>
+                                <br/>
+                                <br/>
+                            </div>
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+
+
+        <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+        <script src='assets/recommendMovie.js'></script>
+        <script src='assets/recommendFood.js'></script>
+        <script src='assets/writeEssay.js'></script>
+        <script src='assets/writeSummary.js'></script>
+        <script src='assets/playSong.js'></script>
+        <script src='assets/openMap.js'></script>
+        <script src='assets/studyNotes.js'></script>
+        <script src='assets/calendar.js'></script>
+        <script src='./script.js'></script>
+
+        <script async defer src="https://apis.google.com/js/api.js"
+        onload="this.onload=function(){};handleClientLoad()"
+        onreadystatechange="if (this.readyState === 'complete') this.onload()">
+      </script>
+
+    </body>
+</html>
